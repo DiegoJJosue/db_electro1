@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Productos;
 use Illuminate\Http\Request;
-
+use DB;
 class ProductosController extends Controller
 {
     /**
@@ -90,7 +90,15 @@ class ProductosController extends Controller
      */
     public function destroy($id)
     {
+        $pro=DB::Select("select * from inventario where inv_id=$id ");
+        if(empty($pro)){
+
         Productos::destroy($id);
         return redirect(route('productos'));    
+        }else{
+$msg="No se puede elimnar este PRODUCTO, porque esta en uso";
+ $productos=Productos::all();
+        return view('productos.index')->with('msg',$msg)->with('productos',$productos);
+        }   
     }
 }

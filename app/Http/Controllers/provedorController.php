@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\provedor;
+use DB;
 
 class provedorController extends Controller
 {
@@ -92,7 +93,17 @@ class provedorController extends Controller
      */
     public function destroy($id)
     {
-        provedor::destroy($id);
-        return redirect(route('provedor'));   
+
+         $pro=DB::Select("select * from facturas where prov_id=$id ");
+        if(empty($pro)){
+provedor::destroy($id);
+        return redirect(route('provedor'));
+           
+        }else{
+$msg="No se puede elimnar este PROVEDOR, porque esta en uso";
+  $provedor=provedor::all();
+        return view('provedor.index')->with('msg',$msg)->with('provedor',$provedor);
+        } 
+           
     }
 }

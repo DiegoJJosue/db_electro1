@@ -3,6 +3,9 @@
 <div class="container">
 	 <div class="row justify-content-center">
 	 	<div class="col-md-8">
+	 		@isset($msg)
+<div class="bg-danger"><strong>{{$msg}}</strong></div>
+@endisset
 	 		<div class="card" style="border: solid 1px black;">
 	<div class="card-header bg-dark">
 <div class="row">
@@ -17,6 +20,7 @@
 </div>
 	</div>
 	<div class="card-body">
+
 
 		<table class="table table-striped">
 			<th>#</th>
